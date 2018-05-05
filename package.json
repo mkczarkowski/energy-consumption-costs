@@ -1,0 +1,12 @@
+{
+  "name": "energy-consumption-costs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mkczarkowski/energy-consumption-costs.git",
+  "author": "Marcin Czarkowski <marcinczarkowski@onet.eu>",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.15.1",
+    "inquirer": "^5.2.0"
+  }
+}
