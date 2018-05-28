@@ -7,29 +7,28 @@
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 
-import path from 'path';
-import fs from 'fs';
-import webpack from 'webpack';
-import chalk from 'chalk';
-import merge from 'webpack-merge';
-import { spawn, execSync } from 'child_process';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import path from 'path'
+import fs from 'fs'
+import webpack from 'webpack'
+import chalk from 'chalk'
+import merge from 'webpack-merge'
+import { execSync, spawn } from 'child_process'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import baseConfig from './webpack.config.base'
 
-CheckNodeEnv('development');
-
-const port = process.env.PORT || 1212;
-const publicPath = `http://localhost:${port}/dist`;
-const dll = path.resolve(process.cwd(), 'dll');
-const manifest = path.resolve(dll, 'renderer.json');
+const port = process.env.PORT || 1212
+const publicPath = `http://localhost:${port}/dist`
+const dll = path.resolve(process.cwd(), 'dll')
+const manifest = path.resolve(dll, 'vendor.json')
 
 /**
  * Warn if the DLL is not built
  */
 if (!(fs.existsSync(dll) && fs.existsSync(manifest))) {
-  console.log(chalk.black.bgYellow.bold('The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'));
-  execSync('npm run build-dll');
+  console.log(chalk.black.bgYellow.bold(
+    'The DLL files are missing. Sit back while we build them for you with "npm run build-dll"'
+  ))
+  execSync('npm run build-dll')
 }
 
 export default merge.smart(baseConfig, {
@@ -45,30 +44,11 @@ export default merge.smart(baseConfig, {
   ],
 
   output: {
-    publicPath: `http://localhost:${port}/dist/`,
-    filename: 'renderer.dev.js'
+    publicPath: `http://localhost:${port}/dist/`
   },
 
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            plugins: [
-              // Here, we include babel plugins that are only required for the
-              // renderer process. The 'transform-*' plugins must be included
-              // before react-hot-loader/babel
-              'transform-class-properties',
-              'transform-es2015-classes',
-              'react-hot-loader/babel'
-            ],
-          }
-        }
-      },
       {
         test: /\.global\.css$/,
         use: [
@@ -100,9 +80,9 @@ export default merge.smart(baseConfig, {
           },
         ]
       },
-      // SASS support - compile all .global.scss files and pipe it to style.css
+      // Add SASS support  - compile all .global.scss files and pipe it to style.css
       {
-        test: /\.global\.(scss|sass)$/,
+        test: /\.global\.scss$/,
         use: [
           {
             loader: 'style-loader'
@@ -118,9 +98,9 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
-      // SASS support - compile all other .scss files and pipe it to style.css
+      // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
+        test: /^((?!\.global).)*\.scss$/,
         use: [
           {
             loader: 'style-loader'
@@ -203,6 +183,9 @@ export default merge.smart(baseConfig, {
       sourceType: 'var',
     }),
 
+    /**
+     * https://webpack.js.org/concepts/hot-module-replacement/
+     */
     new webpack.HotModuleReplacementPlugin({
       multiStep: true
     }),
@@ -221,8 +204,8 @@ export default merge.smart(baseConfig, {
      * By default, use 'development' as NODE_ENV. This can be overriden with
      * 'staging', for example, by changing the ENV variables in the npm scripts
      */
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
 
     new webpack.LoaderOptionsPlugin({
@@ -231,13 +214,8 @@ export default merge.smart(baseConfig, {
 
     new ExtractTextPlugin({
       filename: '[name].css'
-    }),
+    })
   ],
-
-  node: {
-    __dirname: false,
-    __filename: false
-  },
 
   devServer: {
     port,
@@ -248,28 +226,26 @@ export default merge.smart(baseConfig, {
     inline: true,
     lazy: false,
     hot: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
+    headers: {'Access-Control-Allow-Origin': '*'},
     contentBase: path.join(__dirname, 'dist'),
     watchOptions: {
       aggregateTimeout: 300,
-      ignored: /node_modules/,
       poll: 100
     },
     historyApiFallback: {
       verbose: true,
       disableDotRule: false,
     },
-    before() {
+    setup() {
       if (process.env.START_HOT) {
-        console.log('Starting Main Process...');
         spawn(
           'npm',
-          ['run', 'start-main-dev'],
-          { shell: true, env: process.env, stdio: 'inherit' }
+          ['run', 'start-hot-renderer'],
+          {shell: true, env: process.env, stdio: 'inherit'}
         )
           .on('close', code => process.exit(code))
-          .on('error', spawnError => console.error(spawnError));
+          .on('error', spawnError => console.error(spawnError))
       }
     }
   },
-});
+})
