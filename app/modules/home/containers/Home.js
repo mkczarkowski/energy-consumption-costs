@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
-import Home from "../components/Home";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
+import AddDeviceForm from "../components/NewDeviceForm/AddDeviceForm";
 
 class Container extends Component {
   onRequestRouteChange(route) {
@@ -11,8 +11,9 @@ class Container extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: 'flex'}}>
         <DeviceTable />
+        <AddDeviceForm />
       </div>
     );
   }
