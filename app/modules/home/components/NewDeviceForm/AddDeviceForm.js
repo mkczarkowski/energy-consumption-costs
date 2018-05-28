@@ -2,106 +2,98 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/es/Button/Button";
 
 const styles = theme => ({
   container: {
     display: "flex",
+    flex: "1 1 auto",
     flexWrap: "wrap",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignItems: "center"
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200
+    width: 350
   },
   menu: {
     width: 200
+  },
+  button: {
+    marginTop: 8
   }
 });
 
-const currencies = [
-  {
-    value: "USD",
-    label: "$"
-  },
-  {
-    value: "EUR",
-    label: "€"
-  },
-  {
-    value: "BTC",
-    label: "฿"
-  },
-  {
-    value: "JPY",
-    label: "¥"
-  }
-];
-
 class NewDeviceForm extends React.Component {
   state = {
-    name: "Cat in the Hat",
-    age: "",
-    multiline: "Controlled",
-    currency: "EUR"
+    fields: {
+      name: "",
+      powerConsumption: "",
+      timeUsed: ""
+    },
+    valid: false
   };
 
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+    this.setState(
+      {
+        fields: {
+          ...this.state.fields,
+          [name]: event.target.value
+        }
+      },
+      isFormValid.bind(this)
+    );
+
+    function isFormValid() {
+      const fields = { ...this.state.fields };
+      const isValid = Object.keys(fields).every(field => fields[field] !== "");
+
+      this.setState({ valid: isValid });
+    }
   };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <form
-        className={classes.container}
-        noValidate
-        autoComplete="off"
-      >
+      <form className={classes.container} noValidate autoComplete="off">
         <TextField
           id="name"
           label="Nazwa urządzenia"
           className={classes.textField}
-          value={this.state.name}
+          value={this.state.fields.name}
           onChange={this.handleChange("name")}
           margin="normal"
+          type="text"
+          required
         />
         <TextField
-          id="select-currency-native"
-          select
-          label="Zużycie energii"
+          id="power-consumption"
+          label="Zużycie energii [W]"
           className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange("currency")}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu
-            }
-          }}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currencies.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          id="full-width"
-          label="Czas użycia"
-          InputLabelProps={{
-            shrink: true
-          }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
-          margin="normal"
+          value={this.state.fields.powerConsumption}
+          onChange={this.handleChange("powerConsumption")}
+          type="number"
+          required
         />
+        <TextField
+          id="time-used"
+          label="Czas użycia [h/mth]"
+          className={classes.textField}
+          value={this.state.fields.timeUsed}
+          onChange={this.handleChange("timeUsed")}
+          margin="normal"
+          type="number"
+          required
+        />
+        <Button
+          variant="raised"
+          color="primary"
+          style={styles.button}
+          disabled={!this.state.valid}
+        >
+          Dodaj urządzenie
+        </Button>
       </form>
     );
   }

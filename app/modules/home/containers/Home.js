@@ -3,6 +3,19 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
 import AddDeviceForm from "../components/NewDeviceForm/AddDeviceForm";
+import Divider from "@material-ui/core/es/Divider/Divider";
+
+const styles = {
+  container: {
+    display: "flex"
+  },
+  sideBarContainer: {
+    flex: "1 1 auto"
+  },
+  divider: {
+    marginTop: 16
+  }
+};
 
 class Container extends Component {
   onRequestRouteChange(route) {
@@ -11,9 +24,12 @@ class Container extends Component {
 
   render() {
     return (
-      <div style={{display: 'flex'}}>
+      <div style={styles.container}>
         <DeviceTable />
-        <AddDeviceForm />
+        <div style={styles.sideBarContainer}>
+          <AddDeviceForm />
+          <Divider style={styles.divider} />
+        </div>
       </div>
     );
   }
