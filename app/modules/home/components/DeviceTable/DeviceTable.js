@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import EnhancedTableHead from "./EnhancedTable/EnhancedTableHead";
 import EnhancedTableToolbar from "./EnhancedTable/EnhancedTableToolbar";
+import EnhancedTableBody from "./EnhancedTable/EnhancedTableBody";
 
 const styles = theme => ({
   root: {
@@ -79,7 +80,7 @@ class EnhancedTable extends React.Component {
     this.setState({ selected: [] });
   };
 
-  handleClick = (event, id) => {
+  handleRowClick = (event, id) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
@@ -108,7 +109,6 @@ class EnhancedTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
     const { classes } = this.props;
@@ -133,42 +133,14 @@ class EnhancedTable extends React.Component {
               onRequestSort={this.handleRequestSort}
               rowCount={data.length}
             />
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
-                  const isSelected = this.isSelected(n.id);
-                  return (
-                    <TableRow
-                      hover
-                      onClick={event => this.handleClick(event, n.id)}
-                      role="checkbox"
-                      aria-checked={isSelected}
-                      tabIndex={-1}
-                      key={n.id}
-                      selected={isSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.name}
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.powerConsumption}
-                      </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
-                        {n.timeUsed}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 49 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
+            <EnhancedTableBody
+              data={this.state.data}
+              selected={this.state.selected}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              emptyRows={emptyRows}
+              handleRowClick={this.handleRowClick}
+            />
           </Table>
         </div>
         <TablePagination

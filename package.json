@@ -115,6 +115,7 @@
     "electron-chromedriver": "^1.6.0",
     "electron-devtools-installer": "^2.1.0",
     "enzyme": "^3.3.0",
+    "eslint-plugin-flowtype": "^2.47.1",
     "express": "^4.15.2",
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.11.0",

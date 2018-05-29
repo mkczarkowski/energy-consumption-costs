@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/es/Toolbar/Toolbar";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const toolbarStyles = theme => ({
   root: {
