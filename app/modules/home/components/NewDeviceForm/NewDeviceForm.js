@@ -13,7 +13,7 @@ const styles = theme => ({
     alignItems: "center"
   },
   textField: {
-    width: 350
+    width: '80%'
   },
   menu: {
     width: 200
@@ -89,8 +89,9 @@ class NewDeviceForm extends React.Component {
         <Button
           variant="raised"
           color="primary"
-          style={styles.button}
+          className={classes.button}
           disabled={!this.state.valid}
+          onClick={() => this.props.handleDeviceSubmit(this.state.fields)}
         >
           Dodaj urządzenie
         </Button>

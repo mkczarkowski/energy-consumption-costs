@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import isEqual from "lodash.isequal";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -27,14 +28,14 @@ const columnData = [
   },
   {
     id: "powerConsumption",
-    numeric: true,
-    disablePadding: false,
+    numeric: false,
+    disablePadding: true,
     label: "Zużycie energii [w]"
   },
   {
     id: "timeUsed",
-    numeric: true,
-    disablePadding: false,
+    numeric: false,
+    disablePadding: true,
     label: "Czas użycia [h/mth]"
   }
 ];
@@ -128,7 +129,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const { numSelected, handleDeleteIconClick, classes } = props;
+  const { numSelected, selected, handleDeleteClick, classes } = props;
 
   return (
     <Toolbar
@@ -151,7 +152,10 @@ let EnhancedTableToolbar = props => {
       <div className={classes.actions}>
         {numSelected > 0 && (
           <Tooltip title="Delete">
-            <IconButton onClick={handleDeleteIconClick} aria-label="Delete">
+            <IconButton
+              onClick={() => handleDeleteClick(selected)}
+              aria-label="Delete"
+            >
               <DeleteIcon />
             </IconButton>
           </Tooltip>
@@ -196,6 +200,18 @@ class EnhancedTable extends React.Component {
       page: 0,
       rowsPerPage: 9
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!isEqual(nextProps.data, prevState.data)) {
+      const isIdInArray = array => id => array.find(el => id === el.id);
+      const isIdInData = isIdInArray(nextProps.data);
+      const selectedAfterUpdate = prevState.selected.filter(isIdInData);
+
+      return { data: nextProps.data, selected: selectedAfterUpdate };
+    }
+
+    return null;
   }
 
   handleRequestSort = (event, property) => {
@@ -253,17 +269,6 @@ class EnhancedTable extends React.Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-  handleDeleteIconClick = () => {
-    this.setState(prevState => {
-      const selected = [...prevState.selected];
-      const data = [...prevState.data];
-
-      const filteredData = data.filter(el => !selected.includes(el.id));
-
-      return { data: filteredData, selected: [] };
-    });
-  };
-
   render() {
     const { classes } = this.props;
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
@@ -274,7 +279,8 @@ class EnhancedTable extends React.Component {
       <Paper className={classes.root}>
         <EnhancedTableToolbar
           numSelected={selected.length}
-          handleDeleteIconClick={this.handleDeleteIconClick}
+          selected={selected}
+          handleDeleteClick={this.props.handleDeleteClick}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
@@ -307,10 +313,12 @@ class EnhancedTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {n.name}
                       </TableCell>
-                      <TableCell numeric>{n.calories}</TableCell>
-                      <TableCell numeric>{n.fat}</TableCell>
-                      <TableCell numeric>{n.carbs}</TableCell>
-                      <TableCell numeric>{n.protein}</TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.powerConsumption}
+                      </TableCell>
+                      <TableCell component="th" scope="row" padding="none">
+                        {n.timeUsed}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

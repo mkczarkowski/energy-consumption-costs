@@ -145,6 +145,7 @@
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
+    "lodash.isequal": "^4.5.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -154,7 +155,8 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.4.10"
+    "source-map-support": "^0.4.10",
+    "uniqid": "^4.1.1"
   },
   "devEngines": {
     "node": ">=6.x",
