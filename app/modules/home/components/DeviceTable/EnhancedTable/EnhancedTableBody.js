@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TableBody from "@material-ui/core/es/TableBody/TableBody";
 import TableRow from "@material-ui/core/es/TableRow/TableRow";
 import TableCell from "@material-ui/core/es/TableCell/TableCell";
@@ -56,5 +57,21 @@ class EnhancedTableBody extends React.Component {
     );
   }
 }
+
+EnhancedTableBody.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      powerConsumption: PropTypes.string,
+      timeUsed: PropTypes.string
+    })
+  ).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  page: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  handleRowClick: PropTypes.func.isRequired,
+  emptyRows: PropTypes.number.isRequired
+};
 
 export default EnhancedTableBody;
