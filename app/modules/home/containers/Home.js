@@ -13,6 +13,8 @@ const styles = {
     display: "flex"
   },
   sideBarContainer: {
+    backgroundColor: "#fff",
+    borderLeft: "1px solid rgba(0, 0, 0, 0.12)",
     flex: "1 1 auto",
     display: "flex",
     flexDirection: "column"
