@@ -20,7 +20,7 @@ const EnergyPriceForm = ({ classes, energyPrice, handleChange }) => (
   <form className={classes.container} noValidate autoComplete="off">
     <TextField
       id="energyPrice"
-      label="Cena energii [kWh]"
+      label="Cena energii [zł/kWh]"
       className={classes.textField}
       value={energyPrice}
       onChange={event => handleChange(event)}

@@ -16,13 +16,13 @@ const columnData = [
   },
   {
     id: "powerConsumption",
-    numeric: false,
+    numeric: true,
     disablePadding: true,
-    label: "Zużycie energii [w]"
+    label: "Zużycie energii [W]"
   },
   {
     id: "timeUsed",
-    numeric: false,
+    numeric: true,
     disablePadding: true,
     label: "Czas użycia [h/mth]"
   }
