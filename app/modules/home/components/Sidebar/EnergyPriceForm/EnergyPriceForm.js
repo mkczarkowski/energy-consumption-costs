@@ -32,7 +32,9 @@ const EnergyPriceForm = ({ classes, energyPrice, handleChange }) => (
 );
 
 EnergyPriceForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  energyPrice: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(EnergyPriceForm);

@@ -35,7 +35,7 @@ class Container extends Component {
   };
 
   handleEnergyPriceChange = event => {
-    const newPrice = event.target.value;
+    const newPrice = Number(event.target.value);
     this.setState({ energyPrice: newPrice });
   };
 
