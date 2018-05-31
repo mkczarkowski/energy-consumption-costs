@@ -21,7 +21,7 @@ class EnergyCostCalculator extends Component {
         }}
       >
         <Typography variant="headline" paragraph align="center" color="primary">
-          Koszta zużycia energii
+          Koszty zużycia energii
         </Typography>
         <Typography variant="display2" align="center" color="secondary">
           {montlyEnergyCost}
