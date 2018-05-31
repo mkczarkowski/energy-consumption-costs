@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import uniqid from "uniqid";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
-import AddDeviceForm from "../components/NewDeviceForm/NewDeviceForm";
+import AddDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
 import Divider from "@material-ui/core/es/Divider/Divider";
 
 const styles = {
