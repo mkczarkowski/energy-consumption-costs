@@ -4,16 +4,18 @@ import { push } from "react-router-redux";
 import uniqid from "uniqid";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
 import NewDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
-import Divider from "@material-ui/core/es/Divider/Divider";
 import EnergyPriceForm from "../components/Sidebar/EnergyPriceForm/EnergyPriceForm";
 import withDivider from "../hoc/withDivider";
+import EnergyCostCalculator from "../components/Sidebar/EnergyCostCalculator/EnergyCostCalculator";
 
 const styles = {
   container: {
     display: "flex"
   },
   sideBarContainer: {
-    flex: "1 1 auto"
+    flex: "1 1 auto",
+    display: "flex",
+    flexDirection: "column"
   }
 };
 
@@ -66,6 +68,11 @@ class Container extends Component {
           <EnergyPriceFormWithDivider
             handleChange={this.handleEnergyPriceChange}
             energyPrice={this.state.energyPrice}
+          />
+          <EnergyCostCalculator
+            devices={this.state.devices}
+            energyPrice={this.state.energyPrice}
+            currency="zł"
           />
         </div>
       </div>
