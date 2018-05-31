@@ -24,14 +24,9 @@ class Header extends Component {
     return (
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="title" color="inherit" className={classes.title}>
-            Kalkulator kosztów energii elektrycznej
+            Kalkulator kosztów zużycia energii elektrycznej
           </Typography>
-          <Button color='inherit' onClick={() => onRequestRouteChange('/1')}>Dodaj urządzenie</Button>
-          <Button color='inherit' onClick={() => onRequestRouteChange('/2')}>Ustaw koszt zużycia energii</Button>
         </Toolbar>
       </AppBar>
     )
