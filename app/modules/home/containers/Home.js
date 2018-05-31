@@ -6,6 +6,7 @@ import DeviceTable from "../components/DeviceTable/DeviceTable";
 import NewDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
 import Divider from "@material-ui/core/es/Divider/Divider";
 import EnergyPriceForm from "../components/Sidebar/EnergyPriceForm/EnergyPriceForm";
+import withDivider from "../hoc/withDivider";
 
 const styles = {
   container: {
@@ -13,11 +14,11 @@ const styles = {
   },
   sideBarContainer: {
     flex: "1 1 auto"
-  },
-  divider: {
-    marginTop: 16
   }
 };
+
+const NewDeviceFormWithDivider = withDivider(NewDeviceForm);
+const EnergyPriceFormWithDivider = withDivider(EnergyPriceForm);
 
 class Container extends Component {
   state = {
@@ -59,9 +60,10 @@ class Container extends Component {
           handleDeleteClick={this.handleDeleteClick}
         />
         <div style={styles.sideBarContainer}>
-          <NewDeviceForm handleDeviceSubmit={this.handleDeviceSubmit} />
-          <Divider style={styles.divider} />
-          <EnergyPriceForm
+          <NewDeviceFormWithDivider
+            handleDeviceSubmit={this.handleDeviceSubmit}
+          />
+          <EnergyPriceFormWithDivider
             handleChange={this.handleEnergyPriceChange}
             energyPrice={this.state.energyPrice}
           />
