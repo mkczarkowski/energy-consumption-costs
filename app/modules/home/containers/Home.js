@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import uniqid from "uniqid";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
-import AddDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
+import NewDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
 import Divider from "@material-ui/core/es/Divider/Divider";
+import EnergyPriceForm from "../components/Sidebar/EnergyPriceForm/EnergyPriceForm";
 
 const styles = {
   container: {
@@ -20,7 +21,8 @@ const styles = {
 
 class Container extends Component {
   state = {
-    devices: []
+    devices: [],
+    energyPrice: 0.67
   };
 
   onRequestRouteChange(route) {
@@ -30,6 +32,11 @@ class Container extends Component {
   handleDeviceSubmit = ({ name, powerConsumption, timeUsed }) => {
     const newDevice = { id: uniqid(), name, powerConsumption, timeUsed };
     this.setState({ devices: [...this.state.devices, newDevice] });
+  };
+
+  handleEnergyPriceChange = event => {
+    const newPrice = event.target.value;
+    this.setState({ energyPrice: newPrice });
   };
 
   handleDeleteClick = selected => {
@@ -52,8 +59,12 @@ class Container extends Component {
           handleDeleteClick={this.handleDeleteClick}
         />
         <div style={styles.sideBarContainer}>
-          <AddDeviceForm handleDeviceSubmit={this.handleDeviceSubmit} />
+          <NewDeviceForm handleDeviceSubmit={this.handleDeviceSubmit} />
           <Divider style={styles.divider} />
+          <EnergyPriceForm
+            handleChange={this.handleEnergyPriceChange}
+            energyPrice={this.state.energyPrice}
+          />
         </div>
       </div>
     );
