@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import calculateEnergyCost from "./helpers/calculateEnergyCost";
 import Typography from "@material-ui/core/es/Typography/Typography";
+import calculateEnergyCost from "./helpers/calculateEnergyCost";
 
 class EnergyCostCalculator extends Component {
   state = {};

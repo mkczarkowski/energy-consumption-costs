@@ -5,8 +5,6 @@ import PropTypes from "prop-types";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import Toolbar from "@material-ui/core/es/Toolbar/Toolbar";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
-import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import LoadIcon from "@material-ui/icons/FileDownload";
