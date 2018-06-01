@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import LoadIcon from "@material-ui/icons/FileDownload";
+import IconButtonWithTooltip from "../../../shared/ui/IconButtonWithTooltip";
 
 const toolbarStyles = theme => ({
   root: {
@@ -66,26 +67,23 @@ let EnhancedTableToolbar = props => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 && (
-          <Tooltip title="Delete">
-            <IconButton
-              onClick={() => handleDeleteClick(selected)}
-              aria-label="Delete"
-            >
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          <IconButtonWithTooltip
+            tooltip="Usuń"
+            handleClick={() => handleDeleteClick(selected)}
+            renderIcon={() => <DeleteIcon />}
+          />
         )}
       </div>
-      <Tooltip title="Zapisz listę">
-        <IconButton onClick={handleSaveClick} aria-label="Zapisz listę">
-          <SaveIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Wczytaj listę">
-        <IconButton onClick={handleLoadClick} aria-label="Wczytaj listę">
-          <LoadIcon />
-        </IconButton>
-      </Tooltip>
+      <IconButtonWithTooltip
+        tooltip="Wczytaj listę"
+        handleClick={handleLoadClick}
+        renderIcon={() => <LoadIcon />}
+      />
+      <IconButtonWithTooltip
+        tooltip="Zapisz listę"
+        handleClick={handleSaveClick}
+        renderIcon={() => <SaveIcon />}
+      />
     </Toolbar>
   );
 };
