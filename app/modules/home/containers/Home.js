@@ -58,7 +58,23 @@ class Container extends Component {
   };
 
   handleSaveClick = () => {
-    storage.set("devices", this.state.devices);
+    storage.set("devices", this.state.devices, error => {
+      if (error) {
+        throw error;
+      }
+    });
+  };
+
+  handleLoadClick = () => {
+    storage.get("devices", setLoadedDevicesState.bind(this));
+
+    function setLoadedDevicesState(error, devices) {
+      if (error) {
+        throw error;
+      }
+
+      return this.setState({ devices });
+    }
   };
 
   render() {
@@ -68,6 +84,7 @@ class Container extends Component {
           data={this.state.devices}
           handleDeleteClick={this.handleDeleteClick}
           handleSaveClick={this.handleSaveClick}
+          handleLoadClick={this.handleLoadClick}
         />
         <div style={styles.sideBarContainer}>
           <NewDeviceFormWithDivider

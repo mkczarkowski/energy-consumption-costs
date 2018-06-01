@@ -9,6 +9,7 @@ import Tooltip from "@material-ui/core/es/Tooltip/Tooltip";
 import IconButton from "@material-ui/core/es/IconButton/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
+import LoadIcon from "@material-ui/icons/FileDownload";
 
 const toolbarStyles = theme => ({
   root: {
@@ -39,6 +40,7 @@ let EnhancedTableToolbar = props => {
   const {
     numSelected,
     selected,
+    handleLoadClick,
     handleDeleteClick,
     classes,
     handleSaveClick
@@ -77,6 +79,11 @@ let EnhancedTableToolbar = props => {
       <Tooltip title="Zapisz listę">
         <IconButton onClick={handleSaveClick} aria-label="Zapisz listę">
           <SaveIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Wczytaj listę">
+        <IconButton onClick={handleLoadClick} aria-label="Wczytaj listę">
+          <LoadIcon />
         </IconButton>
       </Tooltip>
     </Toolbar>

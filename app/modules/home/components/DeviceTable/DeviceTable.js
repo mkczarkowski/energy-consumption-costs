@@ -120,8 +120,9 @@ class EnhancedTable extends React.Component {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
-          handleSaveClick={this.props.handleSaveClick}
           handleDeleteClick={this.props.handleDeleteClick}
+          handleSaveClick={this.props.handleSaveClick}
+          handleLoadClick={this.props.handleLoadClick}
         />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
