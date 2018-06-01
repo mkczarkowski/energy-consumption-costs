@@ -7,6 +7,7 @@ import NewDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
 import EnergyPriceForm from "../components/Sidebar/EnergyPriceForm/EnergyPriceForm";
 import withDivider from "../hoc/withDivider";
 import EnergyCostCalculator from "../components/Sidebar/EnergyCostCalculator/EnergyCostCalculator";
+import storage from "./helpers/storage";
 
 const styles = {
   container: {
@@ -56,12 +57,17 @@ class Container extends Component {
     });
   };
 
+  handleSaveClick = () => {
+    storage.set("devices", this.state.devices);
+  };
+
   render() {
     return (
       <div style={styles.container}>
         <DeviceTable
           data={this.state.devices}
           handleDeleteClick={this.handleDeleteClick}
+          handleSaveClick={this.handleSaveClick}
         />
         <div style={styles.sideBarContainer}>
           <NewDeviceFormWithDivider

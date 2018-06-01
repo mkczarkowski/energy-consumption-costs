@@ -120,6 +120,7 @@ class EnhancedTable extends React.Component {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
+          handleSaveClick={this.props.handleSaveClick}
           handleDeleteClick={this.props.handleDeleteClick}
         />
         <div className={classes.tableWrapper}>

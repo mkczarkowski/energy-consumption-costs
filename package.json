@@ -143,6 +143,7 @@
     "@material-ui/core": "^1.0.0",
     "@material-ui/icons": "^1.0.0",
     "electron-debug": "^1.1.0",
+    "electron-json-storage": "^4.1.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
