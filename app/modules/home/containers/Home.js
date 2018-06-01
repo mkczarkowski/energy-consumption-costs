@@ -3,27 +3,14 @@ import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import uniqid from "uniqid";
 import DeviceTable from "../components/DeviceTable/DeviceTable";
-import NewDeviceForm from "../components/Sidebar/NewDeviceForm/NewDeviceForm";
-import EnergyPriceForm from "../components/Sidebar/EnergyPriceForm/EnergyPriceForm";
-import withDivider from "../hoc/withDivider";
-import EnergyCostCalculator from "../components/Sidebar/EnergyCostCalculator/EnergyCostCalculator";
 import storage from "./helpers/storage";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const styles = {
   container: {
     display: "flex"
-  },
-  sideBarContainer: {
-    backgroundColor: "#fff",
-    borderLeft: "1px solid rgba(0, 0, 0, 0.12)",
-    flex: "1 1 auto",
-    display: "flex",
-    flexDirection: "column"
   }
 };
-
-const NewDeviceFormWithDivider = withDivider(NewDeviceForm);
-const EnergyPriceFormWithDivider = withDivider(EnergyPriceForm);
 
 class Container extends Component {
   state = {
@@ -86,20 +73,12 @@ class Container extends Component {
           handleSaveClick={this.handleSaveClick}
           handleLoadClick={this.handleLoadClick}
         />
-        <div style={styles.sideBarContainer}>
-          <NewDeviceFormWithDivider
-            handleDeviceSubmit={this.handleDeviceSubmit}
-          />
-          <EnergyPriceFormWithDivider
-            handleChange={this.handleEnergyPriceChange}
-            energyPrice={this.state.energyPrice}
-          />
-          <EnergyCostCalculator
-            devices={this.state.devices}
-            energyPrice={this.state.energyPrice}
-            currency="zł"
-          />
-        </div>
+        <Sidebar
+          handleDeviceSubmit={this.handleDeviceSubmit}
+          energyPrice={this.state.energyPrice}
+          handleEnergyPriceChange={this.handleEnergyPriceChange}
+          devices={this.state.devices}
+        />
       </div>
     );
   }
