@@ -36,7 +36,7 @@ class EnergyCostCalculator extends Component {
           {"  "}
           {this.props.currency}
         </Typography>
-        <Typography variant="subheading" paragraph align="center">
+        <Typography variant="subheading" align="center">
           rocznie
         </Typography>
       </div>
