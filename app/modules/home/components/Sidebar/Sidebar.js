@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import EnergyCostCalculator from "./EnergyCostCalculator/EnergyCostCalculator";
 import NewDeviceForm from "./NewDeviceForm/NewDeviceForm";
 import EnergyPriceForm from "./EnergyPriceForm/EnergyPriceForm";
-import withDivider from "../../hoc/withDivider";
+import withDivider from "../../shared/hoc/withDivider";
 
 const NewDeviceFormWithDivider = withDivider(NewDeviceForm);
 const EnergyPriceFormWithDivider = withDivider(EnergyPriceForm);

@@ -3,7 +3,7 @@ import Divider from "@material-ui/core/es/Divider/Divider";
 
 const styles = {
   divider: {
-    marginTop: 16
+    // marginTop: 16
   }
 };
 
